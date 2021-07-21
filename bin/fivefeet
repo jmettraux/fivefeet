@@ -42,54 +42,42 @@ module FeetExpander
       m = ft * 0.3
       sq = ft * 0.2
 
-      st =
-        tost(ft)
-      #st =
-      #  case st
-      #  when '+5' then 't-1'
-      #  when '+4' then 't-2'
-      #  when /^\+/ then nil
-      #  else st
-      #  end
-
-      [ "#{rtos(ft)}ft", "#{rtos(m)}m", "#{rtos(sq)}sq", st ]
+      [ "#{rtos(ft)}ft", "#{rtos(m)}m", "#{rtos(sq)}sq", tost(ft) ]
         .compact
         .join(' ')
     end
 
     def tost(ft)
 
-      rs = [
-        to_rulers(ft, { V: 50, F: 40, t: 30, x: 5 }),
-        to_rulers(ft, { F: 40, t: 30, x: 5 }),
-        to_rulers(ft, { t: 30, x: 5 }) ]
+      minone = false
+      if ft % 10 == 5
+        minone = true
+        ft += 5
+      end
 
-      return nil if rs.all? { |e| e.match?(/^\d*x$/) }
+      r = ('x' * (ft.to_i / 5))
+        .gsub(/xxxxxx/, 't')
+        .gsub(/tttt/, 'FFF')
+        .gsub(/ttxxxx/, 'FF')
+        .gsub(/txx/, 'F')
+        .gsub(/Fxxxx/, 'tt')
+        .gsub(/Fxx/, 'V')
+        .gsub(/FFFFF/, 'VVVV')
 
-      r = rs.find { |e| e.length == 1 }; return r if r
-
-      rs.join('_')
-    end
-
-    def to_rulers(ft, h)
-
-      h
-        .collect { |k, v|
-          c = ft / v; ft = ft % v
-          [ c, k ] }
-        .collect { |c, k|
-          case c
-          when 0 then ''
-          when 1 then k
-          else "#{c}#{k}"
-          end }
-        .collect { |e|
-          case e
-          when 'x' then '+1'
-          when '5x' then '-1'
-          else e
-          end }
+      r = r.chars
+        .sort_by { |c| c == 'V' ? -50 : c == 'F' ? -40 : c == 't' ? -30 : -5 }
         .join
+
+      r = r
+        .gsub(/V{4,}/) { |x| "#{x.length}V" }
+        .gsub(/F{4,}/) { |x| "#{x.length}F" }
+        .gsub(/t{4,}/) { |x| "#{x.length}t" }
+
+      return 't-2' if ! minone && r == 'xxxx'
+
+      return nil if r.match(/^x{1,4}$/)
+
+      minone ? r + '-1' : r
     end
   end
 end
