@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 
-module FeetExpander
+module FiveFeet
 
   class << self
 
@@ -86,5 +86,5 @@ end
 s = ARGV[0]
 s = s + 'ft' unless s.index('f')
 
-puts FeetExpander.expand(s)
+puts FiveFeet.expand(s)
 

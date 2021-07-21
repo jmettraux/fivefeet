@@ -8,7 +8,7 @@
 require 'spec_helper'
 
 
-describe FeetExpander do
+describe FiveFeet do
 
   describe '.expand' do
 
@@ -86,7 +86,7 @@ describe FeetExpander do
 
       it "turns #{k.inspect} into #{v.inspect}" do
 
-        expect(FeetExpander.expand(k)).to eq(v)
+        expect(FiveFeet.expand(k)).to eq(v)
       end
     end
   end
