@@ -80,6 +80,8 @@ describe FeetExpander do
       #'295ft' => '295ft 88.5m 59sq 6Ftt-1',
       '295ft' => '295ft 88.5m 59sq 4VFtt-1',
 
+      '300ft' => '300ft 90m 60sq 4VFtt',
+
     }.each do |k, v|
 
       it "turns #{k.inspect} into #{v.inspect}" do
