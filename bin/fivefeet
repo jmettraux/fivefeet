@@ -5,7 +5,7 @@ module FiveFeet
 
   class << self
 
-    def expand(s, &block)
+    def expand(s, opts={})
 
       s
         .gsub(
@@ -14,16 +14,15 @@ module FiveFeet
             (\d[.,]\d+|[.,]\d+|\d+)[- ]*
             (foot|feet|ft\.?)
           }xi) {
-            r = expand_feet($1, $2, $3)
-            block ? block.call(r) : r
+            expand_feet($1, $2, opts)
           }
     end
 
     protected
 
-    def expand_feet(r0, r1, unit)
+    def expand_feet(r0, r1, opts)
 
-      [ r0 ? do_expand_feet(r0) : nil, do_expand_feet(r1) ]
+      [ r0 ? do_expand_feet(r0, opts) : nil, do_expand_feet(r1, opts) ]
         .compact.join(' / ')
     end
 
@@ -36,18 +35,18 @@ module FiveFeet
       end
     end
 
-    def do_expand_feet(range)
+    def do_expand_feet(range, opts)
 
       ft = range.to_i; return '0ft' if ft == 0
       m = ft * 0.3
       sq = ft * 0.2
 
-      [ "#{rtos(ft)}ft", "#{rtos(m)}m", "#{rtos(sq)}sq", tost(ft) ]
+      [ "#{rtos(ft)}ft", "#{rtos(m)}m", "#{rtos(sq)}sq", tost(ft, opts) ]
         .compact
         .join(' ')
     end
 
-    def tost(ft)
+    def tost(ft, opts)
 
       minone = false
       if ft % 10 == 5
@@ -83,8 +82,34 @@ module FiveFeet
 end
 
 
-s = ARGV[0]
-s = s + 'ft' unless s.index('f')
+argh = {}
+arga = []
+  #
+loop do
+  a = ARGV.shift; break unless a
+  k = a; k = k[1..-1] while k[0, 1] == '-'
+  case a
+  when '-m', '--max' then argh[k] = ARGV.shift
+  when /^-[a-zA-Z]$/ then argh[k] = true
+  when /^--[-a-zA-Z]+$/ then argh[k] = true
+  else arga << a
+  end
+end
 
-puts FiveFeet.expand(s)
+if (h = argh['h'] || argh['help']) || arga.first == nil
+
+  puts
+  puts "fivefeet"
+  puts
+  puts "  bin/fivefeet 30ft"
+  puts "    #==> 30ft 9m 6sq t"
+  puts
+
+  exit h ? 0 : 1
+end
+
+opts = {}
+opts[:max] = argh['max'] || argh['m']
+
+puts FiveFeet.expand(arga.first, opts)
 
