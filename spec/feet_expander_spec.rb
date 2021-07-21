@@ -15,58 +15,58 @@ describe FeetExpander do
     {
 
       "reach 5 ft., " =>
-        "reach 5ft_1.5m_1sq, ",
+        "reach 5ft 1.5m 1sq, ",
 
       "**Speed** 40 ft." =>
-        "**Speed** 40ft_12m_8sq_F",
+        "**Speed** 40ft 12m 8sq F",
 
       "**Move** 0 ft., fly 60 ft. (hover)" =>
-        "**Move** 0ft, fly 60ft_18m_12sq_tt (hover)",
+        "**Move** 0ft, fly 60ft 18m 12sq tt (hover)",
 
       "+4 to hit, range 80/320 ft., one" =>
-        "+4 to hit, range 80ft_24m_16sq_FF / 320ft_96m_64sq_8F, one",
+        "+4 to hit, range 80ft 24m 16sq FF / 320ft 96m 64sq 8F, one",
 
       "reach 5 ft. or range 20/60 ft., one" =>
-        "reach 5ft_1.5m_1sq or range 20ft_6m_4sq_t-2 / 60ft_18m_12sq_tt, one",
+        "reach 5ft 1.5m 1sq or range 20ft 6m 4sq t-2 / 60ft 18m 12sq tt, one",
 
       '500 feet' =>
-        '500ft_150m_100sq_11Ftt',
+        '500ft 150m 100sq 11Ftt',
 
-      '5ft' => '5ft_1.5m_1sq',
-      '10ft' => '10ft_3m_2sq',
-      '15ft' => '15ft_4.5m_3sq',
-      '20ft' => '20ft_6m_4sq_t-2',
-      '25ft' => '25ft_7.5m_5sq_t-1',
-      '30ft' => '30ft_9m_6sq_t',
-      '35ft' => '35ft_10.5m_7sq_F-1',
-      '40ft' => '40ft_12m_8sq_F',
-      '45ft' => '45ft_13.5m_9sq_F+1',
-      '50ft' => '50ft_15m_10sq_tt-2',
-      '55ft' => '55ft_16.5m_11sq_tt-1',
-      '60ft' => '60ft_18m_12sq_tt',
-      '65ft' => '65ft_19.5m_13sq_Ft-1',
-      '70ft' => '70ft_21m_14sq_Ft',
-      '80ft' => '80ft_24m_16sq_FF',
-      '90ft' => '90ft_27m_18sq_ttt',
-      '95ft' => '95ft_28.5m_19sq_Ftt-1',
-      '100ft' => '100ft_30m_20sq_Ftt',
-      '105ft' => '105ft_31.5m_21sq_FFt-1',
-      '110ft' => '110ft_33m_22sq_FFt',
-      '120ft' => '120ft_36m_24sq_FFF',
-      '125ft' => '125ft_37.5m_25sq_Fttt-1',
-      '130ft' => '130ft_39m_26sq_Fttt',
-      '135ft' => '135ft_40.5m_27sq_FFtt-1',
-      '140ft' => '140ft_42m_28sq_FFtt',
-      '145ft' => '145ft_43.5m_29sq_FFFt-1',
-      '150ft' => '150ft_45m_30sq_FFFt',
-      '160ft' => '160ft_48m_32sq_4F',
-      '165ft' => '165ft_49.5m_33sq_FFttt-1',
-      '320ft' => '320ft_96m_64sq_8F',
-      '400ft' => '400ft_120m_80sq_10F',
-      '600ft' => '600ft_180m_120sq_15F',
+      '5ft' => '5ft 1.5m 1sq',
+      '10ft' => '10ft 3m 2sq',
+      '15ft' => '15ft 4.5m 3sq',
+      '20ft' => '20ft 6m 4sq t-2',
+      '25ft' => '25ft 7.5m 5sq t-1',
+      '30ft' => '30ft 9m 6sq t',
+      '35ft' => '35ft 10.5m 7sq F-1',
+      '40ft' => '40ft 12m 8sq F',
+      '45ft' => '45ft 13.5m 9sq F+1',
+      '50ft' => '50ft 15m 10sq tt-2',
+      '55ft' => '55ft 16.5m 11sq tt-1',
+      '60ft' => '60ft 18m 12sq tt',
+      '65ft' => '65ft 19.5m 13sq Ft-1',
+      '70ft' => '70ft 21m 14sq Ft',
+      '80ft' => '80ft 24m 16sq FF',
+      '90ft' => '90ft 27m 18sq ttt',
+      '95ft' => '95ft 28.5m 19sq Ftt-1',
+      '100ft' => '100ft 30m 20sq Ftt',
+      '105ft' => '105ft 31.5m 21sq FFt-1',
+      '110ft' => '110ft 33m 22sq FFt',
+      '120ft' => '120ft 36m 24sq FFF',
+      '125ft' => '125ft 37.5m 25sq Fttt-1',
+      '130ft' => '130ft 39m 26sq Fttt',
+      '135ft' => '135ft 40.5m 27sq FFtt-1',
+      '140ft' => '140ft 42m 28sq FFtt',
+      '145ft' => '145ft 43.5m 29sq FFFt-1',
+      '150ft' => '150ft 45m 30sq FFFt',
+      '160ft' => '160ft 48m 32sq 4F',
+      '165ft' => '165ft 49.5m 33sq FFttt-1',
+      '320ft' => '320ft 96m 64sq 8F',
+      '400ft' => '400ft 120m 80sq 10F',
+      '600ft' => '600ft 180m 120sq 15F',
 
-      '245ft' => '245ft_73.5m_49sq_4Fttt-1',
-      '295ft' => '295ft_88.5m_59sq_6Ftt-1',
+      '245ft' => '245ft 73.5m 49sq 4Fttt-1',
+      '295ft' => '295ft 88.5m 59sq 6Ftt-1',
 
     }.each do |k, v|
 

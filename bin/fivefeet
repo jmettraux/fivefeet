@@ -19,11 +19,6 @@ module FeetExpander
           }
     end
 
-    def exp(n)
-
-      expand("#{n} feet")
-    end
-
     protected
 
     def expand_feet(r0, r1, unit)
@@ -34,7 +29,7 @@ module FeetExpander
 
     def rtos(range)
 
-      case r = ("%.1f" % range)
+      case r = ('%.1f' % range)
       when /\.[1-9]/ then r.to_f.to_s
       when /\.0*/ then r.to_i.to_s
       else r
@@ -59,7 +54,7 @@ module FeetExpander
 
       [ "#{rtos(ft)}ft", "#{rtos(m)}m", "#{rtos(sq)}sq", st ]
         .compact
-        .join('_')
+        .join(' ')
     end
 
     def rework_tail(s)
@@ -100,5 +95,8 @@ module FeetExpander
 end
 
 
-puts FeetExpander.expand(ARGV[0])
+s = ARGV[0]
+s = s + 'ft' unless s.index('f')
+
+puts FeetExpander.expand(s)
 
