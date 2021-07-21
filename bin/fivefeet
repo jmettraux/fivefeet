@@ -44,52 +44,52 @@ module FeetExpander
 
       st =
         tost(ft)
-      st =
-        case st
-        when '+5' then 't-1'
-        when '+4' then 't-2'
-        when /^\+/ then nil
-        else st
-        end
+      #st =
+      #  case st
+      #  when '+5' then 't-1'
+      #  when '+4' then 't-2'
+      #  when /^\+/ then nil
+      #  else st
+      #  end
 
       [ "#{rtos(ft)}ft", "#{rtos(m)}m", "#{rtos(sq)}sq", st ]
         .compact
         .join(' ')
     end
 
-    def rework_tail(s)
-
-      m = s.match(/^([^+]*)(t)\+(\d+)$/); return nil unless m
-      b, t, n = m[1], m[2], m[3].to_i
-
-      return "#{b}F-1" if n == 1
-      return nil if n < 2
-
-      n = n - 2
-      "F#{b}#{n > 0 ? "+#{n}" : ''}"
-    end
-
     def tost(ft)
 
-      return '' if ft == 0
-      return "+#{rtos(ft / 5.0)}" if ft < 30
+      rs = [
+        to_rulers(ft, { V: 50, F: 40, t: 30, x: 5 }),
+        to_rulers(ft, { F: 40, t: 30, x: 5 }),
+        to_rulers(ft, { t: 30, x: 5 }) ]
 
-      t1 = ft / 30
-      t1r = ft % 30
+      return nil if rs.all? { |e| e.match?(/^\d*x$/) }
 
-      s = "#{'t' * t1}#{tost(t1r)}"
-      while rs = rework_tail(s); s = rs; end
+      r = rs.find { |e| e.length == 1 }; return r if r
 
-      s
-        .gsub(/tttt/,
-          'FFF')
-        .gsub(/[tF]+/) { |s|
-          ts, fs = s.count('t'), s.count('F')
-          ('F' * fs) + ('t' * ts) }
-        .gsub(/F+/) { |s|
-          s.length > 3 ? "#{s.length}F" : s }
-        .gsub(/F\+([23])$/) { |s|
-          "tt#{-4 + $1.to_i}" }
+      rs.join('_')
+    end
+
+    def to_rulers(ft, h)
+
+      h
+        .collect { |k, v|
+          c = ft / v; ft = ft % v
+          [ c, k ] }
+        .collect { |c, k|
+          case c
+          when 0 then ''
+          when 1 then k
+          else "#{c}#{k}"
+          end }
+        .collect { |e|
+          case e
+          when 'x' then '+1'
+          when '5x' then '-1'
+          else e
+          end }
+        .join
     end
   end
 end
