@@ -89,6 +89,23 @@ describe FiveFeet do
         expect(FiveFeet.expand(k)).to eq(v)
       end
     end
+
+    context 'max: 299' do
+
+      {
+
+        '245ft' => '245ft 73.5m 49sq 5V-1',
+
+        '300ft' => '300ft 90m 60sq',
+
+      }.each do |k, v|
+
+        it "turns #{k.inspect} into #{v.inspect}" do
+
+          expect(FiveFeet.expand(k, max: 299)).to eq(v)
+        end
+      end
+    end
   end
 end
 

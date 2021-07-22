@@ -48,6 +48,8 @@ module FiveFeet
 
     def tost(ft, opts)
 
+      return nil if opts[:max] && ft > opts[:max]
+
       minone = false
       if ft % 10 == 5
         minone = true
@@ -89,7 +91,7 @@ loop do
   a = ARGV.shift; break unless a
   k = a; k = k[1..-1] while k[0, 1] == '-'
   case a
-  when '-m', '--max' then argh[k] = ARGV.shift
+  when '-m', '--max' then argh[k] = ARGV.shift.to_i
   when /^-[a-zA-Z]$/ then argh[k] = true
   when /^--[-a-zA-Z]+$/ then argh[k] = true
   else arga << a
@@ -101,8 +103,13 @@ if (h = argh['h'] || argh['help']) || arga.first == nil
   puts
   puts "fivefeet"
   puts
-  puts "  bin/fivefeet 30ft"
+  puts "  #{$0} 30ft"
   puts "    #==> 30ft 9m 6sq t"
+  puts
+  puts "  #{$0} 300ft"
+  puts "    #==> 300ft 90m 60sq 4VFtt"
+  puts "  #{$0} 300ft --max 299"
+  puts "    #==> 300ft 90m 60sq"
   puts
 
   exit h ? 0 : 1
