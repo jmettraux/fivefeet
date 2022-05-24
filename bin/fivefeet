@@ -94,6 +94,7 @@ loop do
   when '-m', '--max' then argh[k] = ARGV.shift.to_i
   when /^-[a-zA-Z]$/ then argh[k] = true
   when /^--[-a-zA-Z]+$/ then argh[k] = true
+  when '-r', '--ruler' then argh[k] = true
   else arga << a
   end
 end
@@ -111,6 +112,8 @@ if (h = argh['h'] || argh['help']) || arga.first == nil
   puts "  #{$0} 300ft --max 299"
   puts "    #==> 300ft 90m 60sq"
   puts
+  puts "  #{$0} -r 300ft"
+  puts "    #==> output ruler up until 300ft"
 
   exit h ? 0 : 1
 end
@@ -118,5 +121,20 @@ end
 opts = {}
 opts[:max] = argh['max'] || argh['m']
 
-puts FiveFeet.expand(arga.first, opts)
+if argh['ruler'] || argh['r']
+  z = arga.first.to_i
+  i = 5
+  puts "| ft | m | sq |   |"
+  puts "|----|---|----|---|"
+  loop do
+    s = FiveFeet.expand(i.to_s + 'ft', opts)
+    s = s.gsub(/(ft |m |sq )/, ' ').split(' ')
+    s[-1] = '' if s[-1].match?(/-1$/)
+    puts '| ' + s.join(' | ') + ' |'
+    i = i + 5
+    break if i > z
+  end
+else
+  puts FiveFeet.expand(arga.first, opts)
+end
 
